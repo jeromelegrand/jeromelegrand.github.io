@@ -1,0 +1,48 @@
+@mixin ring($size, $color) {
+  width: $size;
+  height: $size;
+
+  $borderSize: $size*0.05 + 3px;
+  border: $borderSize solid $color;
+  border-radius: $size/2;
+
+  $shadowColor: darken($color, 20%);
+  $shadowOffset: 1px + $size * 0.01;
+  box-shadow: $shadowOffset $shadowOffset $shadowOffset $shadowOffset rgba($shadowColor, 0.3),
+              inset $shadowOffset $shadowOffset $shadowOffset $shadowOffset rgba($shadowColor, 0.3);
+  background-color: transparent;
+}
+
+
+body {
+  background-image: url('/images/pattern/circles-light.png');
+}
+
+main {
+  padding: 100px;
+}
+
+.row {
+  margin-bottom: 50px;
+}
+
+.ring {
+  @include ring(75px, #dd7711);
+}
+
+.ring-yellow {
+  @include ring(200px, #ffbf26);
+}
+
+.no-bottom {
+  margin-bottom: 0;
+}
+
+@for $i from 1 to 7 {
+  $ringSize: 60px * $i * 0.5;
+  .ring-black-#{$i} {
+    position: relative;
+    left: -($ringSize*($i - 1))/6;
+    @include ring($ringSize, #000);
+  }
+}
